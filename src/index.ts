@@ -4,7 +4,7 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import myUserRoute from './routes/MyUserRoute'
 import morgan from 'morgan'
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string).then(()=>console.log("connected to datanase"))
+mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string).then(()=>console.log("connected to dataBase"))
 
 const app = express();
 
