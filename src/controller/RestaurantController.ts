@@ -1,6 +1,26 @@
 import { Request, Response } from "express";
 import Restaurant from "../Models/Restaurant";
 
+const getRestaurant = async (req: Request, res: Response) => {
+  try {
+    const restaurantId = req.params.restaurantId;
+
+    const restaurant = await Restaurant.findById(restaurantId);
+
+    if (!restaurant) {
+      res.status(404).json({ message: "Requested Restaurant not found" });
+    }
+    res.json(restaurant);
+  } catch (error) {
+    console.log(error);
+    res
+      .status(500)
+      .json({
+        message: "something went wrong in getting restaurant page details",
+      });
+  }
+};
+
 const searchRestaurants = async (req: Request, res: Response) => {
   try {
     //getting city from search request
@@ -19,9 +39,9 @@ const searchRestaurants = async (req: Request, res: Response) => {
       return res.status(404).json({
         data: [],
         pagination: {
-          total:0,
-          page:1,
-          pages:1,
+          total: 0,
+          page: 1,
+          pages: 1,
         },
       });
     }
@@ -65,4 +85,4 @@ const searchRestaurants = async (req: Request, res: Response) => {
   }
 };
 
-export default { searchRestaurants };
+export default { searchRestaurants, getRestaurant };
